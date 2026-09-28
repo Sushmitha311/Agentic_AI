@@ -1,0 +1,1596 @@
+{
+  "total_requirements": 38,
+  "covered_requirements": 31,
+  "coverage_percentage": "81%",
+  "traceability_matrix": [
+    {
+      "requirement_id": "2469066",
+      "requirement_title": "The SW update for Aurix is intended to handle SW updates received on a SoC OS...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy the Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469067",
+      "requirement_title": "The flashing of new AURIX firmware shall be processed during normal system op...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469068",
+      "requirement_title": "The OTA capabilities of TC37x shall be used This includes the explicit use of...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469069",
+      "requirement_title": "Software update shall be initiated on SoC side by using an \u201cupdate proxy\u201d.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469070",
+      "requirement_title": "The \u201cupdate proxy\u201d shall be implemented as command line interface. This is th...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469071",
+      "requirement_title": "The \u201cupdate proxy\u201d shall implement an interface to \u201cupload software\u201d to a pas...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469072",
+      "requirement_title": "After software upload, the validity of the passive flash bank has to be evalu...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469073",
+      "requirement_title": "The \u201cupdate proxy\u201d shall provide an activation command which shall lead to a ...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Establish Winscp connection between Iveco Target & Windows Test PC",
+            "Copy Sw update DNL present in Artifactory (IVECO_CDC_SWUpdate.dnl) into Iveco HW SOC",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful (### FHPController: Start transferring ..., Verification started..., SW Verify response success!, Verification completed!)",
+            "Activation of new SW complete (### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469074",
+      "requirement_title": "A bank swap is only allowed if the \"validation of the passive bank\" was succe...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Step 1: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "Step 2: SW update for Bank B shall be successful (### FHPController: Verification completed!)",
+            "Step 3: Activation of new SW complete. Following log shall be displayed. ### FHPController: Activation complete!",
+            "Step 4: Target reset happens & Target boot with New Aurix SW",
+            "Step 5: Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "Step 6: SW update for Bank A shall be successful. Following log shall be displayed: ### FHPController: Verification completed!",
+            "Step 7: Activation of new SW complete. Following log shall be displayed: ### FHPController: Activation complete!",
+            "Step 8: Target reset happens & Target boot with New Aurix SW",
+            "Step 9: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Step 1: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "Step 2: SW update for Bank B shall be successful (### FHPController: Verification completed!)",
+            "Step 3: Activation of new SW complete. Following log shall be displayed. ### FHPController: Activation complete!",
+            "Step 4: Target reset happens & Target boot with New Aurix SW",
+            "Step 5: Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "Step 6: SW update for Bank A shall be successful. Following log shall be displayed: ### FHPController: Verification completed!",
+            "Step 7: Activation of new SW complete. Following log shall be displayed: ### FHPController: Activation complete!",
+            "Step 8: Target reset happens & Target boot with New Aurix SW",
+            "Step 9: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469075",
+      "requirement_title": "The \u201cupdate proxy\u201d shall provide a command which shall trigger a rollback to ...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494276: TC_MCU_Update_Aurix_RollBack",
+          "objective": "To verify Roll Back functionality",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw Rollback ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -r)",
+            "Step 7: Perform Target reset",
+            "Step 8 : Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Step 1: Bank Query shall be successful & Aurix in Bank A ( ### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "Step 2: SW update for Bank B shall be successful . Following log Shall be displayed",
+            "Step 3 : Activation of new SW complete. Following log shall be displayed: ### FHPController: Activation complete!",
+            "Step 4 : Target reset happens & Target boot with New Aurix SW",
+            "Step 5: Bank Query shall be successful & Aurix in Bank B ( ### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "Step 6: Sw Rollback shall be success. Following log shall be displayed: FHPProtocol: Received Msg is SW Rollback Response, FHPController: Rollback to former SW Complete!, ### FHPController: Rollback to former SW Complete!",
+            "Step 7 : Target reset Successful. Target boots with formerSW",
+            "Step 8: Bank Query shall be successful & Aurix in Bank A ( ### FHPController: sccInfoData: Mem bank: A Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469076",
+      "requirement_title": "The \u201cupdate proxy\u201d shall provide a command which shall invalidate the content...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494277: TC_MCU_Update_Aurix_SwInvalidation",
+          "objective": "To verify Sw invalidation usecase in Aurix",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw Invalidation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd swupdate_scc.FHProxy -d)",
+            "Step 3: Perform Sw Rollback and Rollback request shall fail ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -r)"
+          ],
+          "validations": [
+            "Step 1: Bank Query shall be successful & Aurix in Bank A ( ### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "Step 2: Sw invalidation request shall be successful. Following Logs shall be displayed: FHPController: FHP_SUBSTATE_SW_INVALIDATE_REQ_COMPLETE !!!, ### FHPController: FHP_SUBSTATE_SW_INVALIDATE_REQ_COMPLETE !!!",
+            "Step 3: SW rollback should not be permitted . Following Logs shall be displayed: FHPController: Rollback request is not permitted, former SW already invalidate!, ### FHPController: Rollback request is not permitted, former SW already invalidate!"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469077",
+      "requirement_title": "Important information about erroneous behavior raised by related component of...",
+      "status": "Missing",
+      "linked_testcases": [
+        {
+          "testcase_id": "N/A",
+          "objective": "N/A",
+          "steps": [],
+          "validations": []
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469078",
+      "requirement_title": "The update proxy shall also be available within android recovery mode.",
+      "status": "Missing",
+      "linked_testcases": [
+        {
+          "testcase_id": "N/A",
+          "objective": "N/A",
+          "steps": [],
+          "validations": []
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469080",
+      "requirement_title": "The AUTOSAR software shall be updateable.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Step 1: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "Step 2: SW update for Bank B shall be successful (### FHPController: Verification completed!)",
+            "Step 3: Activation of new SW complete. Following log shall be displayed. ### FHPController: Activation complete!",
+            "Step 4: Target reset happens & Target boot with New Aurix SW",
+            "Step 5: Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "Step 6: SW update for Bank A shall be successful. Following log shall be displayed: ### FHPController: Verification completed!",
+            "Step 7: Activation of new SW complete. Following log shall be displayed: ### FHPController: Activation complete!",
+            "Step 8: Target reset happens & Target boot with New Aurix SW",
+            "Step 9: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Step 1: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "Step 2: SW update for Bank B shall be successful (### FHPController: Verification completed!)",
+            "Step 3: Activation of new SW complete. Following log shall be displayed. ### FHPController: Activation complete!",
+            "Step 4: Target reset happens & Target boot with New Aurix SW",
+            "Step 5: Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "Step 6: SW update for Bank A shall be successful. Following log shall be displayed: ### FHPController: Verification completed!",
+            "Step 7: Activation of new SW complete. Following log shall be displayed: ### FHPController: Activation complete!",
+            "Step 8: Target reset happens & Target boot with New Aurix SW",
+            "Step 9: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469081",
+      "requirement_title": "The encrypted HSM software shall be updateable.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Step 1: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "Step 2: SW update for Bank B shall be successful (### FHPController: Verification completed!)",
+            "Step 3: Activation of new SW complete. Following log shall be displayed. ### FHPController: Activation complete!",
+            "Step 4: Target reset happens & Target boot with New Aurix SW",
+            "Step 5: Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "Step 6: SW update for Bank A shall be successful. Following log shall be displayed: ### FHPController: Verification completed!",
+            "Step 7: Activation of new SW complete. Following log shall be displayed: ### FHPController: Activation complete!",
+            "Step 8: Target reset happens & Target boot with New Aurix SW",
+            "Step 9: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469082",
+      "requirement_title": "Aurix software update shall only be processed if all software parts, existing...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A ( On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Step 1: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "Step 2: SW update for Bank B shall be successful (### FHPController: Verification completed!)",
+            "Step 3: Activation of new SW complete. Following log shall be displayed. ### FHPController: Activation complete!",
+            "Step 4: Target reset happens & Target boot with New Aurix SW",
+            "Step 5: Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "Step 6: SW update for Bank A shall be successful. Following log shall be displayed: ### FHPController: Verification completed!",
+            "Step 7: Activation of new SW complete. Following log shall be displayed: ### FHPController: Activation complete!",
+            "Step 8: Target reset happens & Target boot with New Aurix SW",
+            "Step 9: Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469084",
+      "requirement_title": "A CRC32 shall be used for each updatable module to verify its integrity.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231 (TC_MCU_Update_Aurix_Upload_Activate_Bank A&B)",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Following log Shall be displayed: ### FHPController: Start transferring ..., Progress ...% [x/y], ### FHPController: Verification started, ### FHPProtocol: packed SW Verify msgSize is 7, ### FHPProtocol: SW verify message send success, ### FHPProtocol: Received Msg is SW Verify Response, ### FHPController: SW Verify response success!, ### FHPController: Verification completed!",
+            "Activation of new SW complete. Following log shall be displayed: ### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "SW update for Bank A shall be successful (### FHPController: Verification completed!)",
+            "Activation of new SW complete (### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)"
+          ]
+        },
+        {
+          "testcase_id": "521593 (TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B)",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Following log Shall be displayed: ### FHPController: Start transferring ..., Progress ...% [x/y], ### FHPController: Verification started, ### FHPProtocol: packed SW Verify msgSize is 7, ### FHPProtocol: SW verify message send success, ### FHPProtocol: Received Msg is SW Verify Response, ### FHPController: SW Verify response success!, ### FHPController: Verification completed!",
+            "Activation of new SW complete. Following log shall be displayed: ### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "SW update for Bank A shall be successful (### FHPController: Verification completed!)",
+            "Activation of new SW complete (### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469085",
+      "requirement_title": "The HSM shall confirm the software authentication of all software modules.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "521593 (TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B)",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Following log Shall be displayed: ### FHPController: Start transferring ..., Progress ...% [x/y], ### FHPController: Verification started, ### FHPProtocol: packed SW Verify msgSize is 7, ### FHPProtocol: SW verify message send success, ### FHPProtocol: Received Msg is SW Verify Response, ### FHPController: SW Verify response success!, ### FHPController: Verification completed!",
+            "Activation of new SW complete. Following log shall be displayed: ### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "SW update for Bank A shall be successful (### FHPController: Verification completed!)",
+            "Activation of new SW complete (### FHPController: Activation complete!)",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469087",
+      "requirement_title": "The \u201cupdate proxy\u201d shall implement an interface to query software version information of each software part on Aurix at active bank.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "521595 (TC_MCU_Update_Aurix_SecPol_SoftwareVersionQuery)",
+          "objective": "To Test the Software Version Query for Aurix",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console and Enter this cmd: on -u 9000:9000 -T swupdate_scc_t /mnt/usr/bin/swupdate_scc.FHProxy -i version)"
+          ],
+          "validations": [
+            "Version Query shall be successful & Aurix App & HSM versions shall be displayed as: ### FHPController: sccInfoData: HSM: 0x17190100, ### FHPController: sccInfoData: AUTOSAR:2026.30.04"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469088",
+      "requirement_title": "The \u201cupdate proxy\u201d shall implement an interface to query the exact Aurix variant.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231 (TC_MCU_Update_Aurix_Upload_Activate_Bank A&B)",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update verification completed successfully"
+          ]
+        },
+        {
+          "testcase_id": "521593 (TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B)",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)"
+          ],
+          "validations": [
+            "SW update verification completed successfully"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469089",
+      "requirement_title": "The \u201cupdate proxy\u201d shall implement an interface to query checksums of each software part on Aurix at active bank using a CRC32.",
+      "status": "Missing",
+      "linked_testcases": [
+        {
+          "testcase_id": "N/A",
+          "objective": "N/A",
+          "steps": [],
+          "validations": []
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469090",
+      "requirement_title": "The \u201cupdate proxy\u201d shall implement an interface to query if standard or alternate address mode is active.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231 (TC_MCU_Update_Aurix_Upload_Activate_Bank A&B)",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)"
+          ],
+          "validations": [
+            "Verify that standard or alternate address mode active query returns success"
+          ]
+        },
+        {
+          "testcase_id": "521593 (TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B)",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Verify bank information query response"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2776374",
+      "requirement_title": "It shall be possible to cancel SW Update process",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494278 (TC_MCU_Update_Aurix_CancelUpload_CancelActivation)",
+          "objective": "To verify SW update Cancellation and Sw activate cancellation",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl) and during the Sw update in progress, abort the update using ctrl+c",
+            "Perform Sw update for Bank B (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Sw activation cancellation (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -c)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console Go to this path cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update Cancellation shall be successful. Following log Shall be displayed: FHPController: FHP_SUBSTATE_SW_CANCEL_UPLOAD_REQ_COMPLETE !!!, ### FHPController: FHP_SUBSTATE_SW_CANCEL_UPLOAD_REQ_COMPLETE !!!",
+            "SW update for Bank B shall be successful after cancellation. Following log Shall be displayed: ### FHPController: Verification completed!",
+            "Activation of new SW complete (### FHPController: Activation complete!)",
+            "Activation Cancellation is Success. Following log shall be displayed: FHPProtocol: FHPProtocol_deInit success, ### FHPProtocol: FHPProtocol_deInit success, FHPController: FHP_SUBSTATE_SW_CANCEL_ACTIVATION_REQ_COMPLETE !!!, ### FHPController: FHP_SUBSTATE_SW_CANCEL_ACTIVATION_REQ_COMPLETE !!!",
+            "Target Reset is Success and Target boots with old SW",
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469092",
+      "requirement_title": "Communication interruption:One or more communication packages cannot be transmitted or received.",
+      "status": "Missing",
+      "linked_testcases": [
+        {
+          "testcase_id": "N/A",
+          "objective": "N/A",
+          "steps": [],
+          "validations": []
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469093",
+      "requirement_title": "\u201cUpdate proxy\u201d interruption: This means any process interruption (e.g. kill) of \u201cUpdate proxy\u201d process including whole SoC resets.",
+      "status": "Missing",
+      "linked_testcases": [
+        {
+          "testcase_id": "N/A",
+          "objective": "N/A",
+          "steps": [],
+          "validations": []
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469094",
+      "requirement_title": "In case of communication interruption, the \u201cupdate proxy\u201d shall try to reestablish the connection to AURIX again.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469095",
+      "requirement_title": "If the amount of retry attempts are reached the \u201cupdate proxy\u201d shall stop and exit with a negative response.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469096",
+      "requirement_title": "In case software update application on Aurix side cannot resume the binary transfer at a specific position, the binary transfer shall be initiated for scratch by \u201cupdate proxy\u201d.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469097",
+      "requirement_title": "In case the software validity check fails, the \u201cupdate proxy\u201d shall retry the flash procedure again",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469098",
+      "requirement_title": "The amount of retry attempts shall be precompiled configurable. This includes all type of retry mechanisms",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469099",
+      "requirement_title": "The SW Update for Aurix shall be able to resume after a reset with the SW activation if a preceding upload was successful.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469101",
+      "requirement_title": "Binary files shall contain only the binary information which can be flashed directly on AURIX side.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231: TC_MCU_Update_Aurix_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        },
+        {
+          "testcase_id": "521593: TC_MCU_Update_Aurix_HSM_Upload_Activate_Bank A&B",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank B (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)",
+            "Perform Sw update for Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Perform Sw activation (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -a)",
+            "Perform Target reset",
+            "Verify Aurix is on Bank A (On QNX serial console cd /mnt/usr/bin & Give cmd ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful. Expected logs: Start transferring, Progress ...%, Verification started, SW Verify response success!, Verification completed!",
+            "Activation of new SW complete. Expected logs: Received Msg is SW Activate Response, Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469102",
+      "requirement_title": "The checksum which shall be used to verify the software flash process shall be part of this binary",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful . Following log Shall be displayed",
+            "Activation of new SW complete. Following log shall be displayed: ### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        },
+        {
+          "testcase_id": "521593",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful . Following log Shall be displayed",
+            "Activation of new SW complete. Following log shall be displayed: ### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469103",
+      "requirement_title": "Each software part (like AUTOSAR or HSM) needs an own binary file",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "521593",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful . Following log Shall be displayed",
+            "Activation of new SW complete. Following log shall be displayed: ### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469106",
+      "requirement_title": "Requirements in this chapter are mainly raised due to dependencies to HSM and other related security mechanisms.",
+      "status": "Missing",
+      "linked_testcases": [
+        {
+          "testcase_id": "N/A",
+          "objective": "N/A",
+          "steps": [],
+          "validations": []
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469107",
+      "requirement_title": "With activated HSM the update handler shall request PFLASH or SWAP UCB access from HSM, before SW update is started.",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful . Following log Shall be displayed",
+            "Activation of new SW complete. Following log shall be displayed: ### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        },
+        {
+          "testcase_id": "521593",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful . Following log Shall be displayed",
+            "Activation of new SW complete. Following log shall be displayed: ### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2772393",
+      "requirement_title": "Secpol mechanism shall be used in proxy side for protecting command line inte...",
+      "status": "Covered",
+      "linked_testcases": [
+        {
+          "testcase_id": "494231",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful . Following log Shall be displayed",
+            "Activation of new SW complete. Following log shall be displayed: ### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        },
+        {
+          "testcase_id": "521593",
+          "objective": "To verify the Aurix update , activate",
+          "steps": [
+            "Step 1 : Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 2: Perform Sw update for Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 3: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 4: Perform Target reset",
+            "Step 5: Verify Aurix is on Bank B (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)",
+            "Step 6: Perform Sw update for Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -f /var/IVECO_CDC_SWUpdate.dnl)",
+            "Step 7: Perform Sw activation (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -a)",
+            "Step 8: Perform Target reset",
+            "Step 9: Verify Aurix is on Bank A (cmd: cd /mnt/usr/bin & ./swupdate_scc.FHProxy -i bank)"
+          ],
+          "validations": [
+            "Bank Query shall be successful & Aurix in Bank A (### FHPController: sccInfoData: Mem bank: A Log shall be displayed)",
+            "SW update for Bank B shall be successful . Following log Shall be displayed",
+            "Activation of new SW complete. Following log shall be displayed: ### FHPProtocol: Received Msg is SW Activate Response, ### FHPController: Activation complete!",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank B (### FHPController: sccInfoData: Mem bank: B Log shall be displayed)",
+            "SW update for Bank A shall be successful",
+            "Activation of new SW complete",
+            "Target reset happens & Target boot with New Aurix SW",
+            "Bank Query shall be successful & Aurix in Bank A"
+          ]
+        }
+      ]
+    },
+    {
+      "requirement_id": "2469109",
+      "requirement_title": "An interface for production diagnosis shall be provided, to execute a bank sw...",
+      "status": "Missing",
+      "linked_testcases": [
+        {
+          "testcase_id": "N/A",
+          "objective": "N/A",
+          "steps": [],
+          "validations": []
+        }
+      ]
+    }
+  ]
+}

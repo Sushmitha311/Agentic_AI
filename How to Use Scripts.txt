@@ -1,0 +1,368 @@
+AGENTIC AI PIPELINE - SCRIPT USAGE GUIDE
+========================================
+
+This folder contains a portable, read-only requirements-to-test traceability
+pipeline. The master orchestrator runs three stages:
+
+  Agent 1: Extracts requirements from DNG or a local Excel/CSV file and
+           generates positive, negative, and boundary test scenarios.
+  Agent 2: Maps the decoded requirements to test cases in an ETM PDF and
+           calculates coverage.
+  Agent 3: Converts the traceability JSON into a formatted Excel report.
+
+Live DNG and ETM data is read only. Generated files are written locally to
+the workspace folder.
+
+
+1. FOLDER STRUCTURE
+-------------------
+
+  Agentic_AI/
+  |-- README.md
+  |-- How to Use Scripts.txt
+  |-- agents/
+  |   |-- master-orchestrator.md
+  |   |-- requirement-decoder.md
+  |   |-- traceability-mapper.md
+  |   `-- excel-report-generator.md
+  |-- scripts/
+  |   |-- config.py
+  |   |-- agent_0_master_orchestrator.py
+  |   |-- agent_1_requirement_understanding.py
+  |   |-- agent_2_traceability_mapper.py
+  |   |-- agent_3_excel_report_generator.py
+  |   |-- analyze_mcu_sheet.py
+  |   |-- check_mcu_columns.py
+  |   |-- copy_scripts.py
+  |   |-- extract_run_timings.py
+  |   |-- parse_logs_workspace.py
+  |   `-- read_temp_outputs.py
+  `-- workspace/
+      |-- decoded_requirements.json
+      |-- traceability_matrix.json
+      `-- traceability_report.xlsx
+
+The workspace folder is created automatically by config.py when required.
+
+
+2. PREREQUISITES
+----------------
+
+Install Python dependencies:
+
+  python -m pip install openpyxl requests urllib3
+
+Install the Gemini CLI if it is not already available:
+
+  npm install -g @google/gemini-cli
+
+To use the Gemini agent definitions, copy all files from:
+
+  Agentic_AI\agents\
+
+to:
+
+  %USERPROFILE%\.gemini\agents\
+
+For online DNG mode, config.py must be able to resolve oslcquery.exe from the
+configured pmt-server installation. Credentials are supplied through
+environment variables; do not store them in this folder.
+
+
+3. OFFLINE PIPELINE
+-------------------
+
+Offline mode avoids the DNG query and reads a local Excel or CSV requirements
+file. The ETM test-case PDF is still required for traceability mapping.
+
+Open PowerShell and run:
+
+  cd D:\FIT\Agentic_AI\scripts
+  python .\agent_0_master_orchestrator.py `
+    --offline `
+    --input-file "D:\path\MCU_Update_Requirement.xlsx" `
+    --section "MCU" `
+    --test-pdf "D:\path\Iveco_Mcu_Update.pdf"
+
+The input file may be an .xlsx or .csv file. Replace the example paths with
+the actual local paths.
+
+
+4. ONLINE PIPELINE
+------------------
+
+Online mode queries DNG for the latest requirements. Set credentials only in
+the current PowerShell session:
+
+  cd D:\FIT\Agentic_AI\scripts
+  $env:DNG_USERNAME = "your_username"
+  $env:DNG_PASSWORD = "your_password"
+
+Run the orchestrator:
+
+  python .\agent_0_master_orchestrator.py `
+    --project "NEO" `
+    --component "NEO" `
+    --config "DNG NEO Stream" `
+    --module "SWRS Update" `
+    --section "MCU" `
+    --test-pdf "D:\path\Iveco_Mcu_Update.pdf"
+
+The orchestrator options are:
+
+  --project       DNG project area; default is NEO
+  --component     DNG component; default is NEO
+  --config        DNG configuration or stream; default is DNG NEO Stream
+  --module        DNG module title
+  --section       Requirement section; default is MCU
+  --test-pdf      ETM test-case PDF; required
+  --offline       Use a local requirements file instead of DNG
+  --input-file    Local Excel or CSV file used with --offline
+
+Show the live command help with:
+
+  python .\agent_0_master_orchestrator.py --help
+
+
+5. RUN INDIVIDUAL STAGES
+------------------------
+
+Use these commands when intermediate files already exist or a stage needs to
+be rerun independently.
+
+Agent 1 - requirement decoding:
+
+  python .\agent_1_requirement_understanding.py `
+    --offline `
+    --input-file "D:\path\requirements.xlsx" `
+    --section "MCU"
+
+Agent 2 - traceability mapping:
+
+  python .\agent_2_traceability_mapper.py `
+    --req-json "..\workspace\decoded_requirements.json" `
+    --test-pdf "D:\path\Iveco_Mcu_Update.pdf" `
+    --output "..\workspace\traceability_matrix.json"
+
+Agent 3 - Excel report generation:
+
+  python .\agent_3_excel_report_generator.py `
+    --input-json "..\workspace\traceability_matrix.json" `
+    --output-excel "..\workspace\traceability_report.xlsx"
+
+
+6. OUTPUT FILES
+---------------
+
+All pipeline outputs are saved in Agentic_AI\workspace\:
+
+  decoded_requirements.json
+    Requirement IDs, titles, functional scope, and generated scenarios.
+
+  traceability_matrix.json
+    Requirement counts, covered counts, coverage percentage, and linked ETM
+    test cases with objectives, steps, and validations.
+
+  traceability_report.xlsx
+    Formatted Excel report containing requirement status, mapped test cases,
+    and coverage status.
+
+
+7. INSPECTION AND DIAGNOSTIC SCRIPTS
+------------------------------------
+
+These scripts inspect inputs, outputs, or local Gemini logs. They do not run
+the complete pipeline.
+
+  Analyze a workbook's headings and MCU section:
+    python .\analyze_mcu_sheet.py "D:\path\MCU_Update_Requirement.xlsx"
+
+  Inspect workbook columns and section values:
+    python .\check_mcu_columns.py "D:\path\MCU_Update_Requirement.xlsx"
+
+  Summarize generated JSON outputs:
+    python .\read_temp_outputs.py
+
+  Inspect local Gemini logs and execution timings:
+    python .\parse_logs_workspace.py
+    python .\extract_run_timings.py
+
+
+8. CONFIGURATION
+----------------
+
+scripts\config.py resolves paths relative to this repository and creates the
+workspace directory automatically. It reads these optional environment
+variables:
+
+  DNG_SERVER      DNG server URL; default is
+                  https://rb-alm-20-p.de.bosch.com
+  DNG_USERNAME    DNG username for online mode
+  DNG_PASSWORD    DNG password for online mode
+
+Do not commit passwords, downloaded requirements, or test-case PDFs.
+We have successfully restructured your agentic AI pipeline! All files and configurations have been consolidated under a single, highly portable, and
+  self-contained directory named Agentic_AI in your workspace.
+
+  By introducing a central config.py module, the entire suite can now be executed on any machine without any path or environment modifications.
+
+  ---
+
+  📂 New Unified Folder Structure: D:\Hackathon\Agentic_AI\
+
+  Here is how your new folder structure looks:
+
+    1 D:\Hackathon\Agentic_AI\
+    2 ├───agents\                           <-- Copy these to other users' .gemini/agents/
+    3 │   ├───master-orchestrator.md
+    4 │   ├───requirement-decoder.md
+    5 │   └───traceability-mapper.md
+    6 ├───scripts\                          <-- Portable core python engines
+    7 │   ├───config.py                     <-- NEW: Unified, dynamic path config file
+    8 │   ├───agent_0_master_orchestrator.py
+    9 │   ├───agent_1_requirement_understanding.py
+   10 │   └───agent_2_traceability_mapper.py
+   11 └───workspace\                        <-- NEW: Isolated runtime outputs directory
+
+  ---
+
+  ⚙️ How the Unified Path Setup Works (config.py)
+
+  A new, shared config.py module was introduced inside the scripts folder. All three of your primary python files now import from config.py to resolve
+  runtime parameters dynamically.
+
+  It calculates:
+   1. BASE_DIR: The script's directory, ensuring files can natively import their neighbors.
+   2. WORKSPACE_DIR: A localized runtime sandbox (D:\Hackathon\Agentic_AI\workspace\) which automatically replaces the hardcoded
+      C:\Users\trm1cob\.gemini\tmp\trm1cob folder.
+   3. OSLCQUERY_PATH: Resolved dynamically relative to the pmt-server root.
+   4. GEMINI_CMD: Resolved dynamically by fetching the user's active %APPDATA% environment variable to support any user's profile natively on Windows.
+
+  ---
+
+  💾 Backup Preservation
+  Per your instructions, no files were deleted. All original files in D:\Hackathon\agents_scripts\ and C:\Users\trm1cob\.gemini\agents\ have been kept
+  completely intact and untouched to act as your legacy backup.
+
+  ---
+
+  🚀 Verification Testing
+
+  We ran a startup verification on the newly restructured orchestrator. It compiled and loaded all neighbor modules perfectly, outputting its help
+  parameters with zero warnings, import errors, or path conflicts:
+
+   1 python "D:\Hackathon\Agentic_AI\scripts\agent_0_master_orchestrator.py" -h
+
+  ---
+
+  👥 How to Share this with Another Person
+  To give this agent to another person, you only need to zip and send them the Agentic_AI folder. Give them these 3 simple steps to get started:
+
+   1. Subagents: Copy all files from Agentic_AI\agents\ into <UserProfile>\.gemini\agents\.
+   2. Scripts: Keep the Agentic_AI\scripts\ folder in their workspace.
+   3. Run Pipeline (Offline): Run from the script folder using local inputs:
+
+   1     python .\agent_0_master_orchestrator.py --offline --input-file ..\..\MCU_Update_Requirement.xlsx --section "MCU" --test-pdf
+     ..\..\Iveco_Mcu_Update.pdf
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+ > python "D:\Hackathon\Agentic_AI\scripts\agent_0_master_orchestrator.py" -h
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+
+ The @master-orchestrator sub-agent has generated the comprehensive help guide below:
+
+  🤖 @master-orchestrator — CLI Help & Usage Guide
+
+  I am the top-level supervisor of your automated requirements-to-test-case software testing pipeline. My primary role is to coordinate and orchestrate the
+  execution flow between Agent 1 (Requirement Decoder) and Agent 2 (Traceability Mapper), providing a complete requirement-to-test-case coverage and
+  traceability summary report.
+
+  ---
+
+  🔒 Strict Read-Only Access Mandate
+
+  The Master Orchestrator operates strictly under a Read-Only Access Model.
+   * No Modifications Allowed: The agent will never suggest, simulate, generate, or execute any commands that attempt to write, update, create, or delete
+     artifacts inside DOORS Next Gen (DNG) or Engineering Test Management (ETM).
+   * Security & Compliance First: All operations are designed to fetch data, analyze content, and export reports locally to ensure full safety and integrity
+     of live configuration baselines and streams.
+
+  ---
+
+  🚀 CLI Parameters & Inputs
+
+  When triggering the Master Orchestrator, you can customize the execution by specifying the following parameters in your prompt:
+
+  ┌─────────────┬────────┬──────────────────────────────────────┬────────────────────────────────────────────────────────────────────────────┐
+  │ Parameter   │ Type   │ Default Value                        │ Description                                                                │
+  ├─────────────┼────────┼──────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
+  │ --project   │ String │ "NEO"                                │ The exact Project Area name in DNG/ETM.                                    │
+  │ --component │ String │ "NEO"                                │ The Component name in GCM/DNG.                                             │
+  │ --config    │ String │ "DNG NEO Stream"                     │ The Stream, baseline, or configuration context context to inspect.         │
+  │ --module    │ String │ Required (e.g., "SWRS Update")       │ The DNG Module containing the targeted requirements.                       │
+  │ --section   │ String │ Required (e.g., "MCU")               │ The specific section heading or chapter prefix within the module to query. │
+  │ --test-pdf  │ String │ Required (e.g.,                      │ Absolute path to the PDF test specification/case file.                     │
+  │             │        │ "D:\Hackathon\Iveco_Mcu_Update.pdf") │                                                                            │
+  │ --offline   │ Flag   │ N/A                                  │ Optional flag to bypass all live network queries and run the orchestration │
+  │             │        │                                      │ entirely in offline cache mode.                                            │
+  └─────────────┴────────┴──────────────────────────────────────┴────────────────────────────────────────────────────────────────────────────┘
+  ---
+
+  🛠️ Pipeline Execution Modes (Online vs. Offline)
+
+  🌐 A. Online Mode
+  In Online Mode, the orchestrator connects live to the DNG RM server, retrieves real-time requirements from the live stream/baseline context, and decodes
+  them dynamically.
+
+  How to run (Online):
+
+   1 python "D:\Hackathon\Agentic_AI\scripts\agent_0_master_orchestrator.py" --project "NEO" --component "NEO" --config "DNG NEO Stream" --module "SWRS
+     Update" --section "MCU" --test-pdf "D:\Hackathon\Iveco_Mcu_Update.pdf"
+
+  🔌 B. Offline Mode
+  In Offline Mode, the orchestrator bypasses server communication entirely and utilizes the local spreadsheet (MCU_Update_Requirement.xlsx or .csv) mapped
+  against your PDF.
+
+  How to run (Offline):
+
+   1 python "D:\Hackathon\Agentic_AI\scripts\agent_0_master_orchestrator.py" --offline --input-file "D:\Hackathon\MCU_Update_Requirement.xlsx" --section
+     "MCU" --test-pdf "D:\Hackathon\Iveco_Mcu_Update.pdf"
+
+  ---
+
+  🔄 Execution Flow
+
+    1                   +----------------------------------+
+    2                   |  @master-orchestrator Triggered  |
+    3                   +-----------------+----------------+
+    4                                     |
+    5                                     v
+    6                   +----------------------------------+
+    7                   |     Agent 1: Requirement Decoder |
+    8                   |   - Extracts from DNG (or cache) | -> Generates `decoded_requirements.json`
+    9                   |   - Analyzes parameters & signals|
+   10                   +-----------------+----------------+
+   11                                     |
+   12                                     v
+   13                   +----------------------------------+
+   14                   |    Agent 2: Traceability Mapper  |
+   15                   |   - Parses Test PDF / ETM Case   | -> Generates `traceability_matrix.json`
+   16                   |   - Maps reqs to test steps      |
+   17                   +-----------------+----------------+
+   18                                     |
+   19                                     v
+   20                   +----------------------------------+
+   21                   |       Consolidated Reporting     | -> Prints raw console logs &
+   22                   |     - Computes coverage %        |    displays markdown metrics.
+   23                   +----------------------------------+
+
+   1. Agent 1 Activation: Runs agent_1_requirement_understanding.py to extract and structure requirements under the specified module and section.
+   2. Agent 2 Activation: Runs agent_2_traceability_mapper.py to parse the --test-pdf and map it against the decoded requirements.
+   3. Consolidation: Aggregates findings and outputs the final metrics.
+
+  ---
+
+  📦 Expected Output Artifacts
+
+   * decoded_requirements.json: Structured requirement properties, inputs, outputs, signal bounds, and functional test scenarios (positive, negative,
+     boundary).
+   * traceability_matrix.json: Mapped test cases, verification steps, confidence scores, and coverage status (Covered or Missing).

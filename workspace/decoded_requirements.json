@@ -1,0 +1,1299 @@
+[
+  {
+    "requirement_id": "2469066",
+    "title": "The SW update for Aurix is intended to handle SW updates received on a SoC OS...",
+    "functional_scope": "SW Update Operation",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify SW update process operates during normal system operation without disturbing other system functionalities",
+        "preconditions": [
+          "SoC OS (Android) and Aurix MCU are fully running",
+          "Normal system operations and functions are actively executing"
+        ],
+        "action": "Initiate SW update for Aurix from the SoC side",
+        "expected_outcome": "Update proceeds and completes successfully while other system functionalities maintain normal performance without interruption"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify update aborts or pauses if other critical system functionalities are disturbed",
+        "preconditions": [
+          "System is in normal operation",
+          "SW update process is initiated"
+        ],
+        "action": "Simulate a critical disturbance or degradation of normal system functionalities during the update process",
+        "expected_outcome": "The update system detects disturbance, logs the error, and fails/aborts to protect system integrity"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify SW update behavior under maximum CPU and memory load of normal system operation",
+        "preconditions": [
+          "System is operating at maximum safe operational load limit"
+        ],
+        "action": "Initiate SW update for Aurix",
+        "expected_outcome": "Update proceeds without causing resource exhaustion or failure of other system functions"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469067",
+    "title": "The flashing of new AURIX firmware shall be processed during normal system op...",
+    "functional_scope": "Flasher Operation",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify flashing of new AURIX firmware during normal system operation",
+        "preconditions": [
+          "Aurix firmware binary is uploaded and validated",
+          "System is in normal operation state"
+        ],
+        "action": "Trigger flashing of new AURIX firmware",
+        "expected_outcome": "Flashing is processed successfully without interrupting the normal system operation state"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify flashing is blocked if the system is not in a normal system operation state",
+        "preconditions": [
+          "System is in an abnormal/error or shutdown state"
+        ],
+        "action": "Attempt to trigger flashing of new AURIX firmware",
+        "expected_outcome": "Flashing process is blocked, and appropriate error is logged"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469068",
+    "title": "The OTA capabilities of TC37x shall be used This includes the explicit use of...",
+    "functional_scope": "OTA Double Banks",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify OTA update explicitly uses the double banks concept of TC37x",
+        "preconditions": [
+          "Active bank is running the current software version",
+          "Passive bank is available and ready for write operations"
+        ],
+        "action": "Perform OTA software update on the passive bank",
+        "expected_outcome": "Software is successfully written to the passive bank while active bank continues running without disturbance"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify OTA update fails when passive bank is unavailable or write-protected",
+        "preconditions": [
+          "Passive bank of TC37x is marked as locked or corrupt"
+        ],
+        "action": "Initiate OTA software update",
+        "expected_outcome": "Update is rejected immediately with double bank error code logged"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469069",
+    "title": "Software update shall be initiated on SoC side by using an \u201cupdate proxy\u201d.",
+    "functional_scope": "Update Proxy Initiation",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify software update initiation on the SoC side using the update proxy",
+        "preconditions": [
+          "Update proxy is active on the SoC side",
+          "Update binaries are staged and ready"
+        ],
+        "action": "Request software update initiation using the update proxy",
+        "expected_outcome": "Update proxy successfully establishes communication with Aurix and initiates the update flow"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify software update is rejected when attempted without the update proxy",
+        "preconditions": [
+          "Update proxy is not running or bypassed"
+        ],
+        "action": "Attempt to directly flash the Aurix MCU bypassing the update proxy",
+        "expected_outcome": "Flashing attempt is rejected by Aurix MCU security and integrity checks"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469070",
+    "title": "The \u201cupdate proxy\u201d shall be implemented as command line interface. This is th...",
+    "functional_scope": "Update Proxy CLI",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify starting and steering Aurix software update via the update proxy CLI",
+        "preconditions": [
+          "Access to SoC command line interface is available"
+        ],
+        "action": "Execute update proxy CLI commands to start and steer the update process",
+        "expected_outcome": "CLI parses arguments successfully, executes corresponding update commands, and displays progress"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify update proxy CLI rejects invalid command arguments",
+        "preconditions": [
+          "Access to SoC command line interface is available"
+        ],
+        "action": "Execute update proxy CLI with invalid or unsupported parameters",
+        "expected_outcome": "CLI displays usage syntax/error message and exits with a non-zero status code"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify update proxy CLI behavior with empty parameters",
+        "preconditions": [
+          "Access to SoC command line interface is available"
+        ],
+        "action": "Execute update proxy CLI with no parameters",
+        "expected_outcome": "CLI displays standard help instructions and exits safely without starting any update"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469071",
+    "title": "The \u201cupdate proxy\u201d shall implement an interface to \u201cupload software\u201d to a pas...",
+    "functional_scope": "Software Upload",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify uploading software to a passive flash bank via the update proxy interface",
+        "preconditions": [
+          "Update proxy CLI is available",
+          "Valid software binary is present on SoC"
+        ],
+        "action": "Execute command to upload software binary to the passive flash bank",
+        "expected_outcome": "Software binary is successfully uploaded and written to the passive flash bank"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify upload fails when there is insufficient space on the passive bank",
+        "preconditions": [
+          "Software binary size exceeds passive bank storage capacity"
+        ],
+        "action": "Attempt to upload software binary to the passive flash bank",
+        "expected_outcome": "Upload is aborted, and a persistent size error is logged"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify software upload with a binary of maximum allowable size",
+        "preconditions": [
+          "Software binary of exactly maximum allowable size is staged"
+        ],
+        "action": "Upload software binary of maximum size to the passive flash bank",
+        "expected_outcome": "Upload is completed successfully without memory corruption or overflow"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469072",
+    "title": "After software upload, the validity of the passive flash bank has to be evalu...",
+    "functional_scope": "Validation of Passive Bank",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify automatic validity evaluation of passive flash bank after successful software upload",
+        "preconditions": [
+          "Software upload to passive bank is complete"
+        ],
+        "action": "Trigger passive flash bank evaluation",
+        "expected_outcome": "System successfully evaluates the passive bank, confirms validity, and sets validation status to successful"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify validity evaluation fails when uploaded software is corrupt",
+        "preconditions": [
+          "Software upload with invalid checksum or corrupted payload completed"
+        ],
+        "action": "Trigger passive flash bank evaluation",
+        "expected_outcome": "System detects corruption, sets validation status to failed, and logs evaluation failure"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify validity evaluation handling under sudden validation timeout",
+        "preconditions": [
+          "Software upload is complete",
+          "Validity evaluation is triggered"
+        ],
+        "action": "Simulate timeout/delay during validation calculation",
+        "expected_outcome": "Evaluation is aborted safely, validation status is set to invalid/failed, and timeout error is logged"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469073",
+    "title": "The \u201cupdate proxy\u201d shall provide an activation command which shall lead to a ...",
+    "functional_scope": "Activation and Bank Swap",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify activation command triggers a bank swap after reset",
+        "preconditions": [
+          "Passive bank has been successfully validated"
+        ],
+        "action": "Execute activation command via update proxy and trigger system reset",
+        "expected_outcome": "System performs bank swap after reset, and passive bank becomes the active running bank"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify bank swap does not occur if system reset is skipped after activation command",
+        "preconditions": [
+          "Passive bank is validated"
+        ],
+        "action": "Execute activation command via update proxy, but do not reset the system",
+        "expected_outcome": "Active bank remains active, and bank swap is deferred until reset occurs"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469074",
+    "title": "A bank swap is only allowed if the \"validation of the passive bank\" was succe...",
+    "functional_scope": "Bank Swap Restrictions",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify bank swap is allowed when validation of the passive bank is successful",
+        "preconditions": [
+          "Validation of the passive bank is successful"
+        ],
+        "action": "Execute activation command and trigger reset",
+        "expected_outcome": "Bank swap is executed successfully"
+      },
+      {
+        "scenario_type": "positive",
+        "description": "Verify bank swap as rollback mechanism when valid software is present at passive bank without preceding flash procedure",
+        "preconditions": [
+          "Valid software is already present on passive bank",
+          "No new flash procedure was performed"
+        ],
+        "action": "Execute activation command to swap banks",
+        "expected_outcome": "Bank swap is processed successfully using the existing passive bank software"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify bank swap is rejected if validation of the passive bank failed",
+        "preconditions": [
+          "Validation of the passive bank failed or was not performed"
+        ],
+        "action": "Attempt to trigger activation and bank swap",
+        "expected_outcome": "Activation request is rejected, and bank swap is blocked"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469075",
+    "title": "The \u201cupdate proxy\u201d shall provide a command which shall trigger a rollback to ...",
+    "functional_scope": "Rollback Trigger",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify rollback command triggers swap to former valid software on passive bank before BSg-1612 is performed",
+        "preconditions": [
+          "Former valid software is present on passive flash bank",
+          "BSg-1612 has not been performed"
+        ],
+        "action": "Execute rollback command via update proxy",
+        "expected_outcome": "Rollback is successfully triggered, leading to a bank swap after reset"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify rollback command is rejected after BSg-1612 has been performed",
+        "preconditions": [
+          "BSg-1612 has already been performed"
+        ],
+        "action": "Attempt to execute rollback command via update proxy",
+        "expected_outcome": "Rollback request is rejected, and former software is not executed"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify rollback command executed exactly at the transition boundary of performing BSg-1612",
+        "preconditions": [
+          "BSg-1612 is currently in progress of execution"
+        ],
+        "action": "Execute rollback command via update proxy",
+        "expected_outcome": "Rollback command is rejected or safely aborted if the lockout state has commenced"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469076",
+    "title": "The \u201cupdate proxy\u201d shall provide a command which shall invalidate the content...",
+    "functional_scope": "Rollback Prevention",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify command to invalidate content on the passive flash bank",
+        "preconditions": [
+          "Passive flash bank contains valid software content"
+        ],
+        "action": "Execute invalidation command via update proxy",
+        "expected_outcome": "Content on the passive flash bank is successfully marked as invalid"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify rollback is blocked after passive flash bank invalidation",
+        "preconditions": [
+          "Passive flash bank content has been invalidated"
+        ],
+        "action": "Attempt to execute rollback command",
+        "expected_outcome": "Rollback is blocked because passive bank content is invalid"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify executing invalidation command when passive flash bank is already empty or invalid",
+        "preconditions": [
+          "Passive flash bank content is already invalid"
+        ],
+        "action": "Execute invalidation command via update proxy",
+        "expected_outcome": "Command completes successfully without errors or unexpected state transitions"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469077",
+    "title": "Important information about erroneous behavior raised by related component of...",
+    "functional_scope": "Error Logging",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify erroneous behavior raised by SCC software update components is persistently logged in Error Memory",
+        "preconditions": [
+          "Error Memory is active and writable"
+        ],
+        "action": "Trigger a simulated update error (e.g. communication failure)",
+        "expected_outcome": "Error details are successfully written and persistently saved in Error Memory"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify system behavior when Error Memory interface fails during error logging",
+        "preconditions": [
+          "Error Memory interface is offline or corrupted"
+        ],
+        "action": "Trigger an update error",
+        "expected_outcome": "System attempts recovery, uses fallback logging if available, and continues safe operation without crashing"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify logging capacity boundary when Error Memory is almost full",
+        "preconditions": [
+          "Error Memory has only space for one final entry"
+        ],
+        "action": "Trigger multiple sequential errors",
+        "expected_outcome": "First error is logged successfully; subsequent errors are handled according to memory overflow policies without freezing"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469078",
+    "title": "The update proxy shall also be available within android recovery mode.",
+    "functional_scope": "Recovery Mode Support",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify availability and execution of update proxy in Android recovery mode",
+        "preconditions": [
+          "SoC is booted into Android recovery mode"
+        ],
+        "action": "Execute update proxy CLI commands",
+        "expected_outcome": "Update proxy is fully available, executable, and functional within recovery mode"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify update proxy detects and handles lack of standard OS resources in recovery mode",
+        "preconditions": [
+          "SoC is in recovery mode with limited storage/network services"
+        ],
+        "action": "Run update proxy update commands requiring external networks",
+        "expected_outcome": "Update proxy handles resource unavailability gracefully and logs appropriate offline errors"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469080",
+    "title": "The AUTOSAR software shall be updateable.",
+    "functional_scope": "AUTOSAR Update",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify successful update of the AUTOSAR software component",
+        "preconditions": [
+          "Valid AUTOSAR binary is provided"
+        ],
+        "action": "Execute software update targeting the AUTOSAR partition",
+        "expected_outcome": "AUTOSAR software partition is successfully updated and validated"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify update failure when AUTOSAR partition is write-locked",
+        "preconditions": [
+          "AUTOSAR partition is locked or read-only"
+        ],
+        "action": "Attempt AUTOSAR software update",
+        "expected_outcome": "Update fails, lock error is logged persistently, and no changes are written"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469081",
+    "title": "The encrypted HSM software shall be updateable.",
+    "functional_scope": "HSM Update",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify successful update of the encrypted HSM software",
+        "preconditions": [
+          "Valid encrypted HSM binary is provided with correct credentials"
+        ],
+        "action": "Execute software update targeting HSM partition",
+        "expected_outcome": "Encrypted HSM software is successfully written, decrypted/authenticated by HSM, and updated"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify HSM update rejection when the provided HSM binary is unencrypted or improperly encrypted",
+        "preconditions": [
+          "Unencrypted or corrupted encrypted HSM binary is provided"
+        ],
+        "action": "Attempt HSM software update",
+        "expected_outcome": "HSM rejects the update, logs an authentication error, and retains original HSM firmware"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469082",
+    "title": "Aurix software update shall only be processed if all software parts, existing...",
+    "functional_scope": "All-in-One Software Handover",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify update proceeds when all software parts existing on Aurix are handed over at once",
+        "preconditions": [
+          "AUTOSAR and HSM exist on Aurix",
+          "Binaries for both HSM and AUTOSAR are provided together to the update proxy"
+        ],
+        "action": "Trigger software update via update proxy",
+        "expected_outcome": "Update proxy accepts all parts, and the complete update process is executed successfully"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify update is rejected when partial software parts are handed over",
+        "preconditions": [
+          "AUTOSAR and HSM exist on Aurix",
+          "Only AUTOSAR binary is provided to the update proxy (HSM is missing)"
+        ],
+        "action": "Trigger software update via update proxy",
+        "expected_outcome": "Update is rejected immediately with error indicating missing HSM binary, and no partial update is processed"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify handover when one of the binaries is at its minimum valid size and the other is at maximum",
+        "preconditions": [
+          "AUTOSAR and HSM exist on Aurix",
+          "Minimum size AUTOSAR and maximum size HSM binaries are provided"
+        ],
+        "action": "Trigger software update via update proxy",
+        "expected_outcome": "Update proxy successfully processes and updates both modules within correct limits"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469084",
+    "title": "A CRC32 shall be used for each updatable module to verify its integrity.",
+    "functional_scope": "Integrity Verification",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify successful integrity verification with matching CRC32",
+        "preconditions": [
+          "Updatable modules are uploaded",
+          "Correct CRC32 checksums are provided"
+        ],
+        "action": "Execute integrity verification",
+        "expected_outcome": "CRC32 matches successfully for all modules, and verification returns success"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify integrity verification fails when CRC32 mismatch occurs",
+        "preconditions": [
+          "Updatable modules are uploaded",
+          "Incorrect CRC32 checksum is provided for one module"
+        ],
+        "action": "Execute integrity verification",
+        "expected_outcome": "Verification fails, module is flagged as corrupted, and error is logged in Error Memory"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify CRC32 computation on a module containing exactly 1 byte of payload data",
+        "preconditions": [
+          "Module containing exactly 1 byte is uploaded"
+        ],
+        "action": "Execute integrity verification",
+        "expected_outcome": "CRC32 is computed correctly for the 1-byte payload, and verification status is updated"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469085",
+    "title": "The HSM shall confirm the software authentication of all software modules.",
+    "functional_scope": "Software Authentication",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify successful software authentication confirmation by HSM",
+        "preconditions": [
+          "All software modules are uploaded",
+          "All modules have valid signatures/credentials"
+        ],
+        "action": "Request HSM software authentication confirmation",
+        "expected_outcome": "HSM successfully authenticates all modules and confirms confirmation status to update proxy"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify update block when HSM authentication fails for any software module",
+        "preconditions": [
+          "All software modules are uploaded",
+          "One module has an invalid signature"
+        ],
+        "action": "Request HSM software authentication confirmation",
+        "expected_outcome": "HSM rejects confirmation, authentication failure is flagged, and update process is aborted"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469087",
+    "title": "The \u201cupdate proxy\u201d shall implement an interface to query software version information of each software part on Aurix at active bank.",
+    "functional_scope": "Version Query",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Query software version successfully when Aurix is online",
+        "preconditions": [
+          "Update proxy is active",
+          "Aurix is online and communicating",
+          "Software parts AUTOSAR and HSM exist in active bank with valid versions"
+        ],
+        "action": "Call the software version query interface",
+        "expected_outcome": "Successfully returns correct software version information for AUTOSAR and HSM parts on the active bank"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Query software version when Aurix communication is offline",
+        "preconditions": [
+          "Update proxy is active",
+          "Communication with Aurix is interrupted"
+        ],
+        "action": "Call the software version query interface",
+        "expected_outcome": "Returns error response indicating inability to communicate with Aurix"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Query software version when active bank has corrupted version metadata",
+        "preconditions": [
+          "Update proxy is active",
+          "Aurix active bank software parts have empty or corrupt version metadata"
+        ],
+        "action": "Call the software version query interface",
+        "expected_outcome": "Returns predefined error or placeholder indicating invalid version information without crashing"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469088",
+    "title": "The \u201cupdate proxy\u201d shall implement an interface to query the exact Aurix variant.",
+    "functional_scope": "Variant Query",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Query exact Aurix variant successfully under normal operation",
+        "preconditions": [
+          "Update proxy is active",
+          "Aurix micro-controller is running and responsive"
+        ],
+        "action": "Call the interface to query the Aurix variant",
+        "expected_outcome": "Returns the exact, valid Aurix processor variant identifier (e.g., TC397)"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Query Aurix variant when Aurix is unresponsive",
+        "preconditions": [
+          "Update proxy is active",
+          "Aurix is unresponsive or in error state"
+        ],
+        "action": "Call the interface to query the Aurix variant",
+        "expected_outcome": "Returns a clear query failure code or error status"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Query variant when Aurix reports an unknown or unsupported hardware ID",
+        "preconditions": [
+          "Update proxy is active",
+          "Aurix is running an unknown or unsupported hardware variant ID"
+        ],
+        "action": "Call the interface to query the Aurix variant",
+        "expected_outcome": "Returns 'unknown variant' error status gracefully without crashing"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469089",
+    "title": "The \u201cupdate proxy\u201d shall implement an interface to query checksums of each software part on Aurix at active bank using a CRC32.",
+    "functional_scope": "Integrity Validation",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Query CRC32 checksums of software parts successfully",
+        "preconditions": [
+          "Update proxy is active",
+          "Aurix is online",
+          "Valid software parts exist on active bank with correct CRC32 checksums"
+        ],
+        "action": "Query the checksum of each software part on the active bank",
+        "expected_outcome": "Returns correct 32-bit CRC32 checksum for each part on active bank"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Query checksums when communication fails mid-query",
+        "preconditions": [
+          "Update proxy is active",
+          "Communication with Aurix fails mid-query"
+        ],
+        "action": "Query the checksum of software parts",
+        "expected_outcome": "Returns error indicating communication interruption or checksum query failure"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Query checksums when active bank has un-flashed sectors",
+        "preconditions": [
+          "Update proxy is active",
+          "Aurix active bank is empty or contains un-flashed sectors (0xFF or 0x00 values)"
+        ],
+        "action": "Query the checksum of software parts",
+        "expected_outcome": "Returns valid CRC32 calculation representing the un-flashed block state"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469090",
+    "title": "The \u201cupdate proxy\u201d shall implement an interface to query if standard or alternate address mode is active.",
+    "functional_scope": "Address Mode Query",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Query active address mode when standard mode (Bootchain A) is active",
+        "preconditions": [
+          "Update proxy is active",
+          "Aurix is active in standard address mode (Bootchain A)"
+        ],
+        "action": "Query active address mode interface",
+        "expected_outcome": "Returns status string 'Bootchain A'"
+      },
+      {
+        "scenario_type": "positive",
+        "description": "Query active address mode when alternate mode (Bootchain B) is active",
+        "preconditions": [
+          "Update proxy is active",
+          "Aurix is active in alternate address mode (Bootchain B)"
+        ],
+        "action": "Query active address mode interface",
+        "expected_outcome": "Returns status string 'Bootchain B'"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Query active address mode when communication is down",
+        "preconditions": [
+          "Update proxy is active",
+          "Communication with Aurix is down"
+        ],
+        "action": "Query active address mode interface",
+        "expected_outcome": "Returns error/failure code indicating query failure"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Query active address mode when registers report invalid state",
+        "preconditions": [
+          "Update proxy is active",
+          "Aurix registers report invalid or corrupted address mode state"
+        ],
+        "action": "Query active address mode interface",
+        "expected_outcome": "Returns 'unknown/corrupt' error status gracefully"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2776374",
+    "title": "It shall be possible to cancel SW Update process",
+    "functional_scope": "Cancellation",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Successfully cancel SW Update process during binary transfer",
+        "preconditions": [
+          "SW Update process is running",
+          "Binary transfer is in progress"
+        ],
+        "action": "Send cancel request to update proxy",
+        "expected_outcome": "Update process stops immediately, cancels current transfer, and cleans up resources"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Cancel SW Update process when no update is running",
+        "preconditions": [
+          "SW Update is not running (idle state)"
+        ],
+        "action": "Send cancel request to update proxy",
+        "expected_outcome": "Returns negative response or error indicating no active update process to cancel"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Cancel SW Update process during critical activation phase",
+        "preconditions": [
+          "SW Update is in critical activation phase (flashing finished, ready for reset)"
+        ],
+        "action": "Send cancel request to update proxy",
+        "expected_outcome": "Rejects cancellation request or rolls back safely if possible, returning appropriate cancellation status"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469092",
+    "title": "Communication interruption:One or more communication packages cannot be transmitted or received.",
+    "functional_scope": "Interruption Handling",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Detect wrong message sequences during binary transfer",
+        "preconditions": [
+          "SW Update in progress"
+        ],
+        "action": "Inject a package with a wrong sequence number during binary transfer",
+        "expected_outcome": "System detects sequence mismatch, rejects packet, and flags sequence interruption"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Detect failed package checksum calculations",
+        "preconditions": [
+          "SW Update in progress"
+        ],
+        "action": "Inject a package with incorrect checksum calculation",
+        "expected_outcome": "System detects package checksum failure, discards packet, and logs checksum error"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Complete loss of communication package transmission",
+        "preconditions": [
+          "SW Update in progress"
+        ],
+        "action": "Completely stop transmission of communication packages",
+        "expected_outcome": "System triggers transmission timeout and enters communication recovery state"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469093",
+    "title": "\u201cUpdate proxy\u201d interruption: This means any process interruption (e.g. kill) of \u201cUpdate proxy\u201d process including whole SoC resets.",
+    "functional_scope": "Interruption Recovery",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Recover from process kill of update proxy",
+        "preconditions": [
+          "SW Update in progress"
+        ],
+        "action": "Forcefully kill the update proxy process",
+        "expected_outcome": "Update proxy process terminates immediately; Aurix side transitions to or remains in safe state"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Handle whole SoC reset during flash operation",
+        "preconditions": [
+          "SW Update in progress"
+        ],
+        "action": "Trigger SoC reset during flash process",
+        "expected_outcome": "SoC resets; system boots to safe fallback state or last-known-good configuration"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Kill update proxy process during final write block",
+        "preconditions": [
+          "SW Update is writing final block of software verification binary"
+        ],
+        "action": "Kill update proxy process",
+        "expected_outcome": "Upon reboot, update proxy detects incomplete flash and flags invalid checksum"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469094",
+    "title": "In case of communication interruption, the \u201cupdate proxy\u201d shall try to reestablish the connection to AURIX again.",
+    "functional_scope": "Connection Re-establishment",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Successfully reestablish connection after temporary communication drop",
+        "preconditions": [
+          "SW Update in progress",
+          "Temporary physical link or communication drop occurs"
+        ],
+        "action": "Restore physical link/communication connection",
+        "expected_outcome": "Update proxy automatically attempts to reconnect to Aurix and resumes the transfer"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Ensure update proxy does not attempt reestablishment if proxy process itself is killed",
+        "preconditions": [
+          "SW Update in progress",
+          "Update proxy process itself is killed"
+        ],
+        "action": "Observe reestablishment behavior",
+        "expected_outcome": "Update proxy does not reestablish (left to upper layer FOTA_Handler_Proxy as per hint)"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Repeated connection retry attempts up to the preconfigured limit",
+        "preconditions": [
+          "SW Update in progress",
+          "Connection is broken and remains broken persistently"
+        ],
+        "action": "Observe retry behavior over time",
+        "expected_outcome": "Continues retry attempts repeatedly up to the precompiled configurable retry limit"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469095",
+    "title": "If the amount of retry attempts are reached the \u201cupdate proxy\u201d shall stop and exit with a negative response.",
+    "functional_scope": "Retry Limit Exceeded",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Stop and exit with negative response when retry limit is reached",
+        "preconditions": [
+          "SW Update in progress",
+          "Communication is interrupted",
+          "Retry limit is set to 3"
+        ],
+        "action": "Block connection re-establishment for 3 retry cycles",
+        "expected_outcome": "Update proxy attempts connection exactly 3 times, stops, and exits with a negative response"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Successfully reconnect before reaching retry limit",
+        "preconditions": [
+          "SW Update in progress",
+          "Communication is interrupted",
+          "Retry limit is set to 3"
+        ],
+        "action": "Restore connection on the 2nd retry attempt",
+        "expected_outcome": "Update proxy successfully reconnects and does not exit with a negative response"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Handle retry limit configured to 0",
+        "preconditions": [
+          "SW Update in progress",
+          "Communication is interrupted",
+          "Retry limit is configured to 0"
+        ],
+        "action": "Trigger communication interruption",
+        "expected_outcome": "Update proxy exits immediately with a negative response without making any retry attempts"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469096",
+    "title": "In case software update application on Aurix side cannot resume the binary transfer at a specific position, the binary transfer shall be initiated for scratch by \u201cupdate proxy\u201d.",
+    "functional_scope": "Binary Transfer Reset",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Initiate transfer from scratch when state mismatch occurs on Aurix side",
+        "preconditions": [
+          "Binary transfer is partially complete",
+          "Aurix SCC resets causing state mismatch/unable to resume at specific position"
+        ],
+        "action": "Attempt to resume binary transfer",
+        "expected_outcome": "Update proxy detects resume failure and automatically initiates binary transfer from scratch (offset 0)"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Resume transfer normally when position is valid and no state mismatch exists",
+        "preconditions": [
+          "Binary transfer is partially complete",
+          "Aurix side can resume perfectly at specific position"
+        ],
+        "action": "Resume binary transfer",
+        "expected_outcome": "Update proxy resumes binary transfer from last successful block without starting from scratch"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Initiate transfer from scratch at near-completion mismatch",
+        "preconditions": [
+          "Binary transfer is at 99% completion",
+          "State mismatch occurs on Aurix side"
+        ],
+        "action": "Resume binary transfer",
+        "expected_outcome": "Update proxy discards all previous blocks and re-initiates complete binary transfer from scratch"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469097",
+    "title": "In case the software validity check fails, the \u201cupdate proxy\u201d shall retry the flash procedure again",
+    "functional_scope": "Validity Check Failure",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Retry flash procedure on validity check failure",
+        "preconditions": [
+          "Binary transfer is completed",
+          "Aurix performs software validity check which fails"
+        ],
+        "action": "Trigger software validity check verification",
+        "expected_outcome": "Update proxy automatically retries the entire flash procedure from the beginning"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Do not retry flash procedure when validity check passes successfully",
+        "preconditions": [
+          "Binary transfer is completed",
+          "Software validity check passes successfully"
+        ],
+        "action": "Trigger software validity check verification",
+        "expected_outcome": "Update proxy proceeds to software activation phase and does not retry the flash procedure"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Stop retrying flash procedure when consecutive validity check failures reach retry limit",
+        "preconditions": [
+          "Flash procedure has been retried repeatedly due to continuous validity check failures",
+          "Retry limit is reached"
+        ],
+        "action": "Trigger software validity check verification for the last allowed attempt",
+        "expected_outcome": "Update proxy stops retrying and exits with a negative response"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469098",
+    "title": "The amount of retry attempts shall be precompiled configurable. This includes all type of retry mechanisms",
+    "functional_scope": "Retry Configuration",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify precompiled configured retry limit of 5 is respected",
+        "preconditions": [
+          "Update proxy is precompiled with retry limit set to 5"
+        ],
+        "action": "Trigger continuous communication failures or validity check failures",
+        "expected_outcome": "System allows exactly 5 retry attempts before stopping and returning negative response"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Handle compilation with invalid/negative retry limit configuration",
+        "preconditions": [
+          "Update proxy configured with negative retry limit value"
+        ],
+        "action": "Compile the update proxy software",
+        "expected_outcome": "Compilation fails or build system raises compiler error/asserts fallback value"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify retry counter behavior with maximum integer value configuration",
+        "preconditions": [
+          "Update proxy is precompiled with retry limit set to maximum allowable integer value"
+        ],
+        "action": "Trigger continuous failures to observe retry counter incrementation",
+        "expected_outcome": "System executes retries up to maximum limit without integer overflow of the counter variable"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469099",
+    "title": "The SW Update for Aurix shall be able to resume after a reset with the SW activation if a preceding upload was successful.",
+    "functional_scope": "Resume After Reset",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Resume SW activation after reset when preceding upload was successful",
+        "preconditions": [
+          "Binary upload of software parts was fully successful",
+          "System resets before software activation is completed"
+        ],
+        "action": "Reboot and start the SW update component after reset",
+        "expected_outcome": "Update proxy identifies preceding successful upload and resumes directly with the SW activation phase"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Do not resume activation if preceding upload was incomplete/failed before reset",
+        "preconditions": [
+          "Binary upload was incomplete or failed",
+          "System resets"
+        ],
+        "action": "Reboot and start the SW update component after reset",
+        "expected_outcome": "Update proxy does not resume activation and expects a full re-upload of the binary"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Handle multiple resets during the start of activation phase",
+        "preconditions": [
+          "Binary upload was successful",
+          "Aurix resets multiple times during the start of the activation phase"
+        ],
+        "action": "Observe resume behavior on each subsequent reset",
+        "expected_outcome": "System maintains successful upload state and attempts SW activation up to the precompiled retry limit"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469101",
+    "title": "Binary files shall contain only the binary information which can be flashed directly on AURIX side.",
+    "functional_scope": "Format Validation",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Flash valid binary containing only direct flashable information",
+        "preconditions": [
+          "A valid binary file is supplied",
+          "File contains only flashable binary information"
+        ],
+        "action": "Initiate flash operation with binary file",
+        "expected_outcome": "Successfully parses and flashes binary directly onto Aurix without requiring extra headers filtering"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Reject binary files containing external wrapping formats",
+        "preconditions": [
+          "Binary file contains non-flashable wrapping formats (e.g., Elf headers, S-records, Hex formatting)"
+        ],
+        "action": "Supply the wrapped file to update proxy",
+        "expected_outcome": "Update proxy or Aurix rejects the file, returning an invalid format error"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Reject binary files of size 0 bytes",
+        "preconditions": [
+          "Binary file size is 0 bytes"
+        ],
+        "action": "Supply empty binary file to update proxy",
+        "expected_outcome": "Rejects binary file immediately with empty file error before initiating transfer"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469102",
+    "title": "The checksum which shall be used to verify the software flash process shall be part of this binary",
+    "functional_scope": "Integrity Validation",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Extract and verify embedded checksum from binary file",
+        "preconditions": [
+          "Binary file with embedded CRC checksum is provided"
+        ],
+        "action": "Extract and verify checksum of binary file",
+        "expected_outcome": "Successfully locates and extracts checksum to verify flash integrity"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Fail validation when checksum is missing from binary file",
+        "preconditions": [
+          "Binary file has no embedded checksum or checksum block is missing"
+        ],
+        "action": "Perform checksum verification on binary file",
+        "expected_outcome": "Fails verification and rejects the file prior to or during flash"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Fail validation when embedded checksum is corrupted",
+        "preconditions": [
+          "Binary file contains embedded checksum but the checksum value is modified or corrupted"
+        ],
+        "action": "Perform checksum verification on binary file",
+        "expected_outcome": "Validation fails and triggers validity check failure mechanism"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469103",
+    "title": "Each software part (like AUTOSAR or HSM) needs an own binary file",
+    "functional_scope": "Multi-part Flashing",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Flash separate binary files for each software part successfully",
+        "preconditions": [
+          "Separate, dedicated binary files exist for AUTOSAR and HSM parts"
+        ],
+        "action": "Trigger SW Update process with distinct files",
+        "expected_outcome": "Update proxy flashes each part using its dedicated binary file successfully"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Reject single combined binary file containing multiple software parts",
+        "preconditions": [
+          "A single combined binary file containing both AUTOSAR and HSM is supplied"
+        ],
+        "action": "Trigger SW Update process with combined file",
+        "expected_outcome": "Update proxy rejects combined file or fails validation due to expectation of separate binaries"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Handle missing binary file for one of the software parts",
+        "preconditions": [
+          "Multiple binary files are required but one of them is missing (e.g. AUTOSAR is missing, HSM is present)"
+        ],
+        "action": "Initiate SW update process",
+        "expected_outcome": "Stops update process and returns error reporting the missing software part binary"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469106",
+    "title": "Requirements in this chapter are mainly raised due to dependencies to HSM and other related security mechanisms.",
+    "functional_scope": "Security Constraints",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify HSM security interface dependency validation design is compliant",
+        "preconditions": [
+          "HSM dependency requirements are detailed and active"
+        ],
+        "action": "Validate HSM and security interface interaction",
+        "expected_outcome": "Granular verification tests map successfully to HSM access and security restrictions"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify update behavior when HSM security configuration is incorrect",
+        "preconditions": [
+          "HSM dependency configuration is incorrect"
+        ],
+        "action": "Attempt to execute SW Update",
+        "expected_outcome": "Security mechanisms block flash operation and raise appropriate security errors"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Handle HSM dependency querying during security state transition",
+        "preconditions": [
+          "HSM security state is in transition"
+        ],
+        "action": "Query HSM dependencies during transition",
+        "expected_outcome": "System handles security state transition gracefully without deadlocking or failing"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469107",
+    "title": "With activated HSM the update handler shall request PFLASH or SWAP UCB access from HSM, before SW update is started.",
+    "functional_scope": "Security Access Control",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Request and obtain PFLASH/SWAP UCB access successfully with active HSM",
+        "preconditions": [
+          "HSM is active",
+          "Update handler is initialized"
+        ],
+        "action": "Start SW update process",
+        "expected_outcome": "Update handler requests and successfully obtains PFLASH or SWAP UCB access from HSM before beginning transfer"
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Fail to start SW update when PFLASH/SWAP UCB access request is denied by HSM",
+        "preconditions": [
+          "HSM is active",
+          "Update handler fails to request or is denied access to PFLASH or SWAP UCB by HSM"
+        ],
+        "action": "Start SW update process",
+        "expected_outcome": "Update process is blocked, does not start, and exits with security/access violation error"
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Handle timeout of PFLASH/SWAP UCB access request to HSM",
+        "preconditions": [
+          "HSM is active",
+          "PFLASH/SWAP UCB access request to HSM times out"
+        ],
+        "action": "Start SW update process",
+        "expected_outcome": "Update handler handles timeout gracefully, aborts SW update start, and logs access timeout error"
+      }
+    ]
+  },
+  {
+    "requirement_id": "2772393",
+    "title": "Secpol mechanism shall be used in proxy side for protecting command line inte...",
+    "functional_scope": "CLI Protection",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify CLI command execution when Secpol permissions are authorized.",
+        "preconditions": [
+          "System is fully initialized",
+          "Proxy side is active",
+          "Secpol mechanism is enabled",
+          "Authorized credentials are provided"
+        ],
+        "action": "Send a CLI command through the protected interface.",
+        "expected_outcome": "The CLI command executes successfully and returns the expected result."
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify CLI command is blocked when Secpol permissions are unauthorized or missing.",
+        "preconditions": [
+          "System is fully initialized",
+          "Proxy side is active",
+          "Secpol mechanism is enabled",
+          "Unauthorized or missing credentials"
+        ],
+        "action": "Attempt to execute a CLI command.",
+        "expected_outcome": "Command execution is denied and a security error is returned."
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify proxy CLI behavior when Secpol configuration file is empty or corrupted.",
+        "preconditions": [
+          "System is initializing",
+          "Proxy side is starting up",
+          "Secpol configuration is empty or corrupt"
+        ],
+        "action": "Attempt to initialize the proxy and access the CLI.",
+        "expected_outcome": "Proxy initialization fails or access is completely blocked (fail-secure state)."
+      }
+    ]
+  },
+  {
+    "requirement_id": "2469109",
+    "title": "An interface for production diagnosis shall be provided, to execute a bank sw...",
+    "functional_scope": "Bank Swap",
+    "scenarios": [
+      {
+        "scenario_type": "positive",
+        "description": "Verify bank swap execution via the production diagnosis interface without validity checks.",
+        "preconditions": [
+          "System is in production diagnosis mode",
+          "UCB security disabling steps have been performed",
+          "The production diagnosis interface is accessible"
+        ],
+        "action": "Trigger bank swap command via the production diagnosis interface.",
+        "expected_outcome": "Bank swap is executed immediately without performing any validity checks."
+      },
+      {
+        "scenario_type": "negative",
+        "description": "Verify production diagnosis bank swap interface is inaccessible directly after production when UCB security is active.",
+        "preconditions": [
+          "System is in post-production state",
+          "UCB security is fully active",
+          "UCB security disabling steps have not been performed"
+        ],
+        "action": "Attempt to access the production diagnosis interface to trigger a bank swap.",
+        "expected_outcome": "Access to the interface is denied and no bank swap is executed."
+      },
+      {
+        "scenario_type": "boundary",
+        "description": "Verify system behavior when a second bank swap request is triggered while a bank swap is already in progress.",
+        "preconditions": [
+          "System is in production diagnosis mode",
+          "UCB security disabling steps have been performed",
+          "A bank swap operation is currently active and incomplete"
+        ],
+        "action": "Trigger a second bank swap command via the production diagnosis interface.",
+        "expected_outcome": "The system rejects or serializes the duplicate request, maintaining system integrity."
+      }
+    ]
+  }
+]
